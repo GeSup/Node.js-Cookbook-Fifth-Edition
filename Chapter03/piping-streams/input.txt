@@ -1,0 +1,2 @@
+some text in input
+next text in input
