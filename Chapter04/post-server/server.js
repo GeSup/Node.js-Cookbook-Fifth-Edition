@@ -16,7 +16,9 @@ http
     }
     error(405, res);
   })
-  .listen(3000);
+  .listen(3000, () => {
+    console.log('Server listening on http://localhost:3000');
+  });
 
 function get (res) {
   res.writeHead(200, {

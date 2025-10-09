@@ -9,21 +9,23 @@
     send.addEventListener('click', () => {
         const msg = document.getElementById('msg').value;
         ws.send(msg);
-        output.innerHTML += log('Sent', msg);
+        output.appendChild( log('Sent', msg));
     });
 
     function log(event, msg) {
-        return '<p>' + event + ': ' + msg + '</p>';
+        const p = document.createElement('p');
+        p.textContent = event + ': ' + msg;
+        return p;
     }
 
     ws.onmessage = function (e) {
-        output.innerHTML += log('Received', e.data);
+        output.appendChild( log('Received', e.data));
     };
     ws.onclose = function (e) {
-        output.innerHTML += log('Disconnected', e.code);
+        output.appendChild( log('Disconnected', e.code));
     };
     ws.onerror = function (e) {
-        output.innerHTML += log('Error', e.data);
+        output.appendChild( log('Error', e.data));
     };
 
 </script>

@@ -1,5 +1,6 @@
+node_modules
 Chapter03/learning-streams/file.txt
 Chapter03/piping-streams/output.txt.gz
 Chapter03/transform-streams/newFile.txt
 Chapter03/object-streams/newFile.txt
-node_modules
+Chapter04/file-upload/uploads/*

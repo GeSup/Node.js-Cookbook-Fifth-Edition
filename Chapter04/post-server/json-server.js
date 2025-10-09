@@ -35,6 +35,7 @@ function post (req, res) {
 
   req.on('end', () => {
     const parsed = JSON.parse(input);
+    console.log('Recived data: ', parsed);
     if (parsed.err) {
       error(400, 'Bad Request', res); return;
     }

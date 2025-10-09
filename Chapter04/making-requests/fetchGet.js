@@ -14,7 +14,8 @@ async function performGetRequest () {
     // Handle the data from the response
     console.log('GET request successful:', data);
   } catch (error) {
-    // Handle errors during the request console.error('Error during GET request:', error);
+    // Handle errors during the request 
+    console.error('Error during GET request:', error);
   }
 }
 // Call the function to perform the GET request

@@ -42,6 +42,7 @@ function post (req, res) {
   }
 
   const form = formidable({
+    keepExtensions: true,
     multiples: true,
     uploadDir: './uploads'
   });

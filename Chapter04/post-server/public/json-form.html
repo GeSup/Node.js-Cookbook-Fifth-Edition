@@ -14,7 +14,9 @@
             forename: document.getElementById("forename").value,
             surname: document.getElementById("surname").value,
         };
-        console.log("data", data); fetch("http://localhost:3000", {
+        console.log("data", data); 
+        
+        fetch("http://localhost:3000", {
             method: "post", headers: {
                 "Content-Type": "application/json",
             },
