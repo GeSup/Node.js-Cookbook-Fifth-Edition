@@ -1,16 +1,22 @@
 {
-    "configurations": [
+    "configurations": [        
         {
-            "type": "chrome",
+            "command": "npm start --prefix Chapter06",
+            "name": "Run npm start",
+            "request": "launch",
+            "type": "node-terminal",
+        },
+        {
+            "type": "chrome", 
             "name": "localhost:3000",
             "request": "launch",
-            "url": "http:\\\\localhost:3000"
+            "url": "http://localhost:3000"
         },
                 {
             "type": "chrome",
             "name": "localhost:8080",
             "request": "launch",
-            "url": "http:\\\\localhost:8080"
+            "url": "http://localhost:8080"
         }
     ]
 }

@@ -1,0 +1,17 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run MongoDB (Podman)",
+            "type": "shell",
+            "command": "podman run --rm -d -p 27017:27017 --name fastify-restaurant-api-db mongo:6",
+        }, 
+        {
+            "label": "Stop MongoDB (Podman)",
+            "type": "shell",
+            "command": "podman stop fastify-restaurant-api-db",
+        }
+    ]
+}
