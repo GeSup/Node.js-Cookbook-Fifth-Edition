@@ -4,9 +4,10 @@ import fastifyMongo from '@fastify/mongodb';
 async function datasourcePlugin (app, opts) {
   app.log.info('Connecting to MongoDB');
   app.register(fastifyMongo, {
-    forceClose: true,
-    minPoolSize: 10,
-    maxPoolSize: 20,
+    // url: 'mongodb://localhost:27017/restaurant'
+    // forceClose: true,
+    // minPoolSize: 10,
+    // maxPoolSize: 20,
     url: opts.databaseUrl
   });
 
@@ -24,7 +25,7 @@ async function datasourcePlugin (app, opts) {
     async readRecipes (filters, sort = { order: 1 }) {
       const collection = app.mongo.db.collection('menu');
       const result = await collection
-        .find(filters, { projection: { _id: 0 } })
+        .find(filters) //, { projection: { _id: 0 } })
         .sort(sort).toArray();
       return result;
     },

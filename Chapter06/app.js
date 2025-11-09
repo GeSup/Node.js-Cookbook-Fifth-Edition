@@ -9,7 +9,8 @@ const serverOptions = {
   logger: true,
   ajv: {
     customOptions: {
-      allErrors: true
+      allErrors: true,
+      removeAdditional: 'all'
     }
   }
 };

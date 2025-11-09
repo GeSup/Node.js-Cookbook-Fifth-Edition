@@ -1,4 +1,8 @@
 async function ordersPlugin (app, opts) {
+  async function notImplemented (request, reply) {
+    throw new Error('Not implemented');
+  }
+
   const orderJsonSchema = {
     type: 'object',
     required: ['table', 'dishes'],
@@ -83,7 +87,9 @@ async function ordersPlugin (app, opts) {
   });
 
   app.patch('/orders/:orderId', {
+    // onRequest: app.authOnlyChef,
     config: { auth: true },
+    // handler: notImplemented
     schema: {
       params: {
         type: 'object',
