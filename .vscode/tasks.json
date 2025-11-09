@@ -6,12 +6,29 @@
         {
             "label": "Run MongoDB (Podman)",
             "type": "shell",
+            "dependsOn": "start podman",
             "command": "podman run --rm -d -p 27017:27017 --name fastify-restaurant-api-db mongo:6",
         }, 
         {
             "label": "Stop MongoDB (Podman)",
             "type": "shell",
             "command": "podman stop fastify-restaurant-api-db",
+        },
+        {
+            "label": "Run MongoDB (Docker)",
+            "type": "shell",
+            "command": "docker run --rm -d -p 27017:27017 --name fastify-restaurant-api-db mongo:6",
+        }, 
+        {
+            "label": "Stop MongoDB (Docker)",
+            "type": "shell",
+            "command": "docker stop fastify-restaurant-api-db",
+        },
+        {
+            "label": "start podman",
+            "type": "shell",
+            "command": "if (-not (podman info 2>$null)) { podman machine start }",
+            "problemMatcher": []     
         }
     ]
 }
