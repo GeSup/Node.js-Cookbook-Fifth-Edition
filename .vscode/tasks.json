@@ -27,8 +27,12 @@
         {
             "label": "start podman",
             "type": "shell",
-            "command": "if (-not (podman info 2>$null)) { podman machine start }",
-            "problemMatcher": []     
+            "command": "if ! podman info >/dev/null 2>&1; then podman machine start; fi",
+            "windows": {
+                "command": "podman info 2>$null; if ($LASTEXITCODE -ne 0) { podman machine start }"
+            },
+            "problemMatcher": [],
+            "detail": "It checks whether podman is running, and if not, it starts it."  
         }
     ]
 }
