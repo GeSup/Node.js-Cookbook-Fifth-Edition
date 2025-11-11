@@ -87,8 +87,10 @@ async function ordersPlugin (app, opts) {
   });
 
   app.patch('/orders/:orderId', {
+    // before handled by auth plugin
     // onRequest: app.authOnlyChef,
     config: { auth: true },
+    // before implemented
     // handler: notImplemented
     schema: {
       params: {

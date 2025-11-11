@@ -1,14 +1,16 @@
 function recipesPlugin (app, opts, next) {
-  app.addHook('onRequest', async function isChef (request, reply) {
-    app.log.info('Running global onRequest hook from recipes.js');
-    if (request.headers['x-api-key'] !== 'fastify-rocks') {
-      reply.code(401);
-      throw new Error('Invalid API key');
-    }
-  });
+  // begfore handled by auth plugin
+  // app.addHook('onRequest', async function isChef (request, reply) {
+  //   app.log.info('Running global onRequest hook from recipes.js');
+  //   if (request.headers['x-api-key'] !== 'fastify-rocks') {
+  //     reply.code(401);
+  //     throw new Error('Invalid API key');
+  //   }
+  // });
 
   app.get('/menu', { handler: menuHandler });
   app.get('/recipes', { handler: menuHandler });
+  // before protected routes
   // app.register(async function protectRoutesPlugin (plugin, opts) {
   //   plugin.addHook('onRequest', app.authOnlyChef);
   //   plugin.post('/recipes', async function addToMenu (request, reply) {
@@ -37,6 +39,7 @@ function recipesPlugin (app, opts, next) {
       body: jsonSchemaBody
     },
     handler: async function addToMenu (request, reply) {
+      // next line before implemented
       // throw new Error('Not implemented');
       const { name, country, description, order, price } = request.body;
       const newPlateId = await app.source.insertRecipe({
@@ -64,6 +67,7 @@ function recipesPlugin (app, opts, next) {
       }
     },
     handler: async function removeFromMenu (request, reply) {
+      // next line before implemented
       // reply.send(new Error('Not implemented'));
       const { id } = request.params;
       const [recipe] = await app.source.readRecipes({ id });
