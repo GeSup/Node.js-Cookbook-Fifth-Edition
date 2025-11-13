@@ -7,7 +7,10 @@
             "label": "Run MongoDB (Podman)",
             "type": "shell",
             "dependsOn": "start podman",
-            "command": "podman run --rm -d -p 27017:27017 --name fastify-restaurant-api-db mongo:6",
+            "command": "if podman ps --all --format '{{.Names}}' | grep -q '^fastify-restaurant-api-db$'; than podman start fastify-restaurant-api-db; else podman run --rm -d -p 27017:27017 --name fastify-restaurant-api-db mongo:6; fi",
+            "windows": {
+                "command": "if ( podman ps -a --format '{{.Names}}' | Select-String -Pattern '^fastify-restaurant-api-db$' ) { podman start fastify-restaurant-api-db } else { podman run -d --name fastify-restaurant-api-db -p 27017:27017 -v mongo_data:/data/db mongo:6 }"
+            }
         }, 
         {
             "label": "Stop MongoDB (Podman)",
@@ -33,6 +36,20 @@
             },
             "problemMatcher": [],
             "detail": "It checks whether podman is running, and if not, it starts it."  
+        },
+        {
+            "label": "Start MySQL (podman)",
+            "type": "shell",
+            "dependsOn": "start podman", 
+            "command": "if podman ps --all --format '{{.Names}}' | grep -q '^node-mysql$'; than podman start node-mysql; else podman run --publish 3306:3306 --name node-mysql --env MYSQL_ROOT_PASSWORD=PASSWORD --detach mysql:8; fi",
+            "windows": {
+                "command": "if (podman ps -a --format '{{.Names}}' | Select-String -Pattern '^node-mysql$') { podman start node-mysql } else { podman run --publish 3306:3306 --name node-mysql --env MYSQL_ROOT_PASSWORD=PASSWORD --detach mysql:8 }"
+            }
+        },
+        {
+            "label": "Stop MySQL (podman)",
+            "type": "shell",
+            "command": "podman stop node-mysql",
         }
     ]
 }
