@@ -50,6 +50,20 @@
             "label": "Stop MySQL (podman)",
             "type": "shell",
             "command": "podman stop node-mysql",
-        }
+        },
+                {
+                    "label": "Start Postgress (podman)",
+                    "type": "shell",
+                    "dependsOn": "start podman",
+                    "command": "if podman ps --all --format '{{.Names}}' | grep -q '^node-postgres-latest$'; than podman start node-postgres-latest; else podman run --publish 5432:5432 --name node-postgres-latest --env POSTGRES_PASSWORD=PASSWORD --detach postgres:16; fi",
+                    "windows": {
+                        "command": "if (podman ps -a --format '{{.Names}}' | Select-String -Pattern '^node-postgres-latest$') { podman start node-postgres-latest } else { podman run --publish 5432:5432 --name node-postgres-latest --env POSTGRES_PASSWORD=PASSWORD --detach postgres:16 }"
+                    }
+                },
+                {
+                    "label": "Stop Postgress (podman)",
+                    "type": "shell",
+                    "command": "podman stop node-postgres-latest",
+                }
     ]
 }
