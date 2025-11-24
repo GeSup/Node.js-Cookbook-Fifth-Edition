@@ -4,26 +4,26 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Run MongoDB (Podman)",
+            "label": "Start MongoDB (Podman) fastify-restaurant-api-db",
             "type": "shell",
             "dependsOn": "start podman",
             "command": "if podman ps --all --format '{{.Names}}' | grep -q '^fastify-restaurant-api-db$'; than podman start fastify-restaurant-api-db; else podman run --rm -d -p 27017:27017 --name fastify-restaurant-api-db mongo:6; fi",
             "windows": {
                 "command": "if ( podman ps -a --format '{{.Names}}' | Select-String -Pattern '^fastify-restaurant-api-db$' ) { podman start fastify-restaurant-api-db } else { podman run -d --name fastify-restaurant-api-db -p 27017:27017 -v mongo_data:/data/db mongo:6 }"
             }
-        }, 
+        },
         {
-            "label": "Stop MongoDB (Podman)",
+            "label": "Stop MongoDB (Podman) fastify-restaurant-api-db",
             "type": "shell",
             "command": "podman stop fastify-restaurant-api-db",
         },
         {
-            "label": "Run MongoDB (Docker)",
+            "label": "Start MongoDB (Docker) fastify-restaurant-api-db",
             "type": "shell",
             "command": "docker run --rm -d -p 27017:27017 --name fastify-restaurant-api-db mongo:6",
-        }, 
+        },
         {
-            "label": "Stop MongoDB (Docker)",
+            "label": "Stop MongoDB (Docker) fastify-restaurant-api-db",
             "type": "shell",
             "command": "docker stop fastify-restaurant-api-db",
         },
@@ -35,35 +35,77 @@
                 "command": "podman info 2>$null; if ($LASTEXITCODE -ne 0) { podman machine start }"
             },
             "problemMatcher": [],
-            "detail": "It checks whether podman is running, and if not, it starts it."  
+            "detail": "It checks whether podman is running, and if not, it starts it."
         },
         {
-            "label": "Start MySQL (podman)",
+            "label": "Start MySQL (podman) node-mysql",
             "type": "shell",
-            "dependsOn": "start podman", 
+            "dependsOn": "start podman",
             "command": "if podman ps --all --format '{{.Names}}' | grep -q '^node-mysql$'; than podman start node-mysql; else podman run --publish 3306:3306 --name node-mysql --env MYSQL_ROOT_PASSWORD=PASSWORD --detach mysql:8; fi",
             "windows": {
                 "command": "if (podman ps -a --format '{{.Names}}' | Select-String -Pattern '^node-mysql$') { podman start node-mysql } else { podman run --publish 3306:3306 --name node-mysql --env MYSQL_ROOT_PASSWORD=PASSWORD --detach mysql:8 }"
             }
         },
         {
-            "label": "Stop MySQL (podman)",
+            "label": "Stop MySQL (podman) node-mysql",
             "type": "shell",
             "command": "podman stop node-mysql",
         },
-                {
-                    "label": "Start Postgress (podman)",
-                    "type": "shell",
-                    "dependsOn": "start podman",
-                    "command": "if podman ps --all --format '{{.Names}}' | grep -q '^node-postgres-latest$'; than podman start node-postgres-latest; else podman run --publish 5432:5432 --name node-postgres-latest --env POSTGRES_PASSWORD=PASSWORD --detach postgres:16; fi",
-                    "windows": {
-                        "command": "if (podman ps -a --format '{{.Names}}' | Select-String -Pattern '^node-postgres-latest$') { podman start node-postgres-latest } else { podman run --publish 5432:5432 --name node-postgres-latest --env POSTGRES_PASSWORD=PASSWORD --detach postgres:16 }"
-                    }
-                },
-                {
-                    "label": "Stop Postgress (podman)",
-                    "type": "shell",
-                    "command": "podman stop node-postgres-latest",
-                }
+        {
+            "label": "Start Postgress (podman) node-postgres-latest",
+            "type": "shell",
+            "dependsOn": "start podman",
+            "command": "if podman ps --all --format '{{.Names}}' | grep -q '^node-postgres-latest$'; than podman start node-postgres-latest; else podman run --publish 5432:5432 --name node-postgres-latest --env POSTGRES_PASSWORD=PASSWORD --detach postgres:16; fi",
+            "windows": {
+                "command": "if (podman ps -a --format '{{.Names}}' | Select-String -Pattern '^node-postgres-latest$') { podman start node-postgres-latest } else { podman run --publish 5432:5432 --name node-postgres-latest --env POSTGRES_PASSWORD=PASSWORD --detach postgres:16 }"
+            }
+        },
+        {
+            "label": "Stop Postgress (podman) node-postgres-latest",
+            "type": "shell",
+            "command": "podman stop node-postgres-latest",
+        },
+        {
+            "label": "Start MongoDB (Podman) node-mongo",
+            "type": "shell",
+            "dependsOn": "start podman",
+            "command": "if podman ps --all --format '{{.Names}}' | grep -q '^node-mongo$'; than podman start node-mongo; else podman run --publish 27017:27017 --name node-mongo --detach mongo:7; fi",
+            "windows": {
+                "command": "if ( podman ps -a --format '{{.Names}}' | Select-String -Pattern '^node-mongo$' ) { podman start node-mongo } else { podman run --name node-mongo --publish 27017:27017 --detach mongo:7 }"
+            }
+        },
+        {
+            "label": "Stop MongoDB (Podman) node-mongo",
+            "type": "shell",
+            "command": "podman stop node-mongo",
+        },
+        {
+            "label": "Start Redis (Podman) node-redis",
+            "type": "shell",
+            "dependsOn": "start podman",
+            "command": "if podman ps --all --format '{{.Names}}' | grep -q '^node-redis$'; than podman start node-redis; else podman run --publish 6379:6379 --name node-redis --detach redis; fi",
+            "windows": {
+                "command": "if ( podman ps -a --format '{{.Names}}' | Select-String -Pattern '^node-redis$' ) { podman start node-redis } else { podman run --name node-redis --publish 6379:6379 --detach redis }"
+            }
+        },
+        {
+            "label": "Stop Redis (Podman) node-redis",
+            "type": "shell",
+            "command": "podman stop node-redis",
+        },
+        {
+            "label": "Start Redis (Podman) node-redis-pw",
+            "type": "shell",
+            "dependsOn": "start podman",
+            "command": "if podman ps --all --format '{{.Names}}' | grep -q '^node-redis-pw$'; than podman start node-redis-pw; else podman run --publish 6380:6379 --name node-redis-pw --detach redis redis-server --requirepass PASSWORD; fi",
+            "windows": {
+                "command": "if ( podman ps -a --format '{{.Names}}' | Select-String -Pattern '^node-redis-pw$' ) { podman start node-redis-pw } else { podman run --name node-redis-pw --publish 6379:6379 --detach redis redis-server --requirepass PASSWORD }"
+            }
+        },
+        {
+            "label": "Stop Redis (Podman) node-redis-pw",
+            "type": "shell",
+            "command": "podman stop node-redis-pw",
+        },
     ]
 }
