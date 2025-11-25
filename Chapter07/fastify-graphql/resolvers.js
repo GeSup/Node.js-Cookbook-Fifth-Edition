@@ -1,27 +1,18 @@
-const { authors, books } = require('./data');
+const { authors, books } = require("./data");
 
 const resolvers = {
-
   Query: {
-
     books: () => books,
-
-    authors: () => authors
-
+    authors: () => authors,
   },
 
   Book: {
-
-    author: (parent) => authors.find(author => author.id === parent.authorId)
-
+    author: (parent) => authors.find((author) => author.id === parent.authorId),
   },
 
   Author: {
-
-    books: (parent) => books.filter(book => book.authorId === parent.id)
-
-  }
-
+    books: (parent) => books.filter((book) => book.authorId === parent.id),
+  },
 };
 
 module.exports = { resolvers };
