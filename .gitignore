@@ -5,3 +5,4 @@ Chapter03/transform-streams/newFile.txt
 Chapter03/object-streams/newFile.txt
 Chapter04/file-upload/uploads/*
 .env
+coverage
