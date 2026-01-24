@@ -1,8 +1,9 @@
 node_modules
+.env
+coverage
 Chapter03/learning-streams/file.txt
 Chapter03/piping-streams/output.txt.gz
 Chapter03/transform-streams/newFile.txt
 Chapter03/object-streams/newFile.txt
 Chapter04/file-upload/uploads/*
-.env
-coverage
+Chapter10/flamegraph-app/*0x*
