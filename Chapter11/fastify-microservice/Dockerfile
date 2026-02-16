@@ -1,4 +1,4 @@
-FROM node:20
+FROM node:22
 
 WORKDIR "/app"
 
@@ -13,7 +13,7 @@ RUN npm install --production
 
 COPY . /app
 
-ENV PORT 3000
+ENV PORT=3000
 
 EXPOSE 3000
 
